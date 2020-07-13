@@ -80,5 +80,4 @@ while condition:
     elif selection == 2:
         print('Getting vlans\n')
     get_network_vlans()
-        #get_network_vlans(self,network_id=input("Provide network ID for network device which vlans you'd like to see"))
 testloopcondition(condition)
