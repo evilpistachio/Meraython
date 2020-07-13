@@ -2,7 +2,7 @@ import pprint
 import pandas as pd
 import numpy as np
 from meraki_sdk.meraki_sdk_client import MerakiSdkClient
-from meraki_sdk.exceptions.api_exception import APIException
+#from meraki_sdk.exceptions.api_exception import APIException
 
 # x_cisco_meraki_api_key = '1f7c1eab553c0e70ca80c7d3c6168c643131d258'
 # api_key = input("Provide the API key associated with your account: ")
