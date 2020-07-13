@@ -50,11 +50,15 @@ def getswitchports():
 def updateswitchportvlan():
     selected_serial: str = input('Input the serial number of the device which switchport vlan '
                                  'you would like to change\n')
-    selected_number: str = input('Input the port ID of the port you would like to change')
+    selected_number: str = input('Input the port ID of the port you would like to change\n')
+    api: str = input('Input your API key\n')
     url = f"https://api.meraki.com/api/v0/devices/{selected_serial}/switchPorts/{selected_number}"
-    headers = {'X-Cisco-Meraki-API-Key': '1f7c1eab553c0e70ca80c7d3c6168c643131d258'}  # {"Content-Type: application/json"}
 
-    r = requests.put(url, data={"name": "myswitch"}, headers=headers)
+    headers = {'X-Cisco-Meraki-API-Key': f'{api}'}
+    # headers = {'X-Cisco-Meraki-API-Key': ''}
+    # {"Content-Type: application/json"}
+
+    r = requests.put(url, data={"name": "myswitchPORT"}, headers=headers)
 
     with open('content.txt', 'w') as fd:
         fd.write(r.text)
