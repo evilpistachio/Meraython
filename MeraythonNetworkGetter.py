@@ -2,6 +2,7 @@ import pprint
 import pandas as pd
 import numpy as np
 from meraki_sdk.meraki_sdk_client import MerakiSdkClient
+import requests
 from meraki_sdk.exceptions.api_exception import APIException
 
 # x_cisco_meraki_api_key = ''
@@ -46,6 +47,20 @@ def getswitchports():
     print(sorted_ports.to_string())
 
 
+def updateswitchportvlan():
+    selected_serial: str = input('Input the serial number of the device which switchport vlan '
+                                 'you would like to change\n')
+    selected_number: str = input('Input the port ID of the port you would like to change')
+    url = f"https://api.meraki.com/api/v0/devices/{selected_serial}/switchPorts/{selected_number}"
+    headers = {'X-Cisco-Meraki-API-Key': '1f7c1eab553c0e70ca80c7d3c6168c643131d258'}  # {"Content-Type: application/json"}
+
+    r = requests.put(url, data={"name": "myswitch"}, headers=headers)
+
+    with open('content.txt', 'w') as fd:
+        fd.write(r.text)
+    print(r.content)
+
+
 def testloopcondition(condition):
     answer: str = input('Would you like to check a different network/device? Press Y/N')
     if answer in ['y', 'Y']:
@@ -60,7 +75,13 @@ getdevices()
 
 condition = True
 while condition:
-    selection = int(input('Would you like to see switchports on a particular device? Press 1\n'))
+    selection = int(input('Would you like to see switchports on a particular device? Press 1\n' +
+                          'Press 2 to update switchport settings\n' + 'or Press 3 to end'))
     if selection == 1:
         print('Getting switchports\n')
         getswitchports()
+    elif selection == 2:
+        print('Updating switchport...')
+        updateswitchportvlan()
+    elif selection == 3:
+        print('Goodbye')
