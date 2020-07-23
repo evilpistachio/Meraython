@@ -34,14 +34,14 @@ def getdevices():
     pprint.pprint(devices)
     print('Devices will be grouped by name')
     net_dv = pd.DataFrame(devices, columns=['name', 'firmware', 'serial', 'lanIp', 'mac', 'model', 'notes'])
-    pprint.pprint(net_dv.to_string())
+    print(net_dv.to_string())
 
 
 def getswitchports():
     selected_serial: str = input('Input the serial number of the device which switchports you would like to see\n')
     switch_ports = meraki.switch_ports.get_device_switch_ports(selected_serial)
     sorted_ports = pd.DataFrame(switch_ports, columns=['name', 'number', 'type', 'vlan'])
-    pprint.pprint(sorted_ports.to_string())
+    print(sorted_ports.to_string())
 
 
 def updateswitchportname():
@@ -94,8 +94,7 @@ getorgs()
 getnetworks()
 getdevices()
 
-condition = True
-while condition:
+while True:
     selection = int(input('Would you like to see switchports on a particular device? Press 1\n' +
                           'Press 2 to update switchport settings\n' + 'or Press 3 to end\n'))
     if selection == 1:
