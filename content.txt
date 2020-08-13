@@ -1,0 +1,1 @@
+{"id":10,"networkId":"N_650207196201692704","name":"testvlan","applianceIp":"200.200.200.130","subnet":"200.200.200.128/25","fixedIpAssignments":{},"reservedIpRanges":[],"dnsNameservers":"upstream_dns","dhcpHandling":"Run a DHCP server","dhcpLeaseTime":"1 day","dhcpBootOptionsEnabled":false,"dhcpOptions":[]}
