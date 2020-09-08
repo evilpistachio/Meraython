@@ -13,6 +13,41 @@ api_key = input('Provide the API key associated with your account: ')
 meraki = MerakiSdkClient(api_key)
 
 
+def mainmenu():
+    answer = True
+    while True:
+
+        condition = True
+
+        while True:
+            purpose = int(input('\nTo view organizations, their networks & devices, press 1\n'
+                                'Would you like to manage/update switches, firewalls, or access points?\n' +
+                                'For switches, press 2 & hit enter\n' + 'For firewalls, press 3 & hit enter\n' +
+                                'For MX vlans, press 4 & hit enter \n'))
+            if purpose == 1:
+                networkmenu()
+            elif purpose == 2:
+                switchportmenu()
+            elif purpose == 3:
+                firewallmenu()
+            elif purpose == 4:
+                vlanmenu()
+
+
+def networkmenu():
+    getorgs()
+
+    answer = int(input('To view all networks within an organization, press 1\n'
+                        + 'To view all devices within a network, press 2\n If you are unsure of'
+                          ' your devices network ID, press 1 first\n' + 'For main menu, press 3\n'))
+    if answer == 1:
+        getnetworks()
+    elif answer == 2:
+        getdevices()
+    elif answer == 3:
+        mainmenu()
+
+
 def getorgs():
     # Get organizations - Return list of organizations and IDs
     orgs = meraki.organizations.get_organizations()
@@ -22,7 +57,7 @@ def getorgs():
     # pp.pprint(orgs)
     print(organizations.to_string())
 
-    time.sleep(3)
+    time.sleep(2)
     print('\n')
     for row in organizations.itertuples(index=True, name='Pandas'):
         try:
@@ -64,7 +99,7 @@ def switchportmenu():
                           'Press 2 to update switchport settings\n' + '\nIf you want to update '
                                                                       'and are unsure of serial/portId, '
                                                                       'press 1 to view switchports first\n'
-                                                                      'or Press 3 to end\n'))
+                                                                      'or Press 3 to exit to main menu\n'))
     if selection == 1:
         print('Getting switchports\n')
         getswitchports()
@@ -79,8 +114,7 @@ def switchportmenu():
             print('Updating switchport vlan...')
             updateswitchportvlan()
     elif selection == 3:
-        print('Goodbye')
-        exit(0)
+        mainmenu()
 
 
 def getswitchports():
@@ -134,7 +168,7 @@ def firewallmenu():
                           'Press 2 to update MX VLAN port settings\n' + '\nIf you want to update '
                                                                         'and are unsure of portId, '
                                                                         'press 1 to view ports first\n'
-                                                                        'or Press 3 to end\n'))
+                                                                        'or Press 3 to exit to main menu\n'))
     if selection == 1:
         print('Getting MX ports\n')
         getmxports()
@@ -149,8 +183,7 @@ def firewallmenu():
             print('Updating allowed vlans on port...')
             updateMXallowedvlans()
     elif selection == 3:
-        print('Goodbye')
-        exit(0)
+        mainmenu()
 
 
 def getmxports():
@@ -201,7 +234,8 @@ def updateMXallowedvlans():
 def vlanmenu():
     selection = int(input('Would you like to list all vlans in a MX network? Press 1 & hit enter\n'
                           + 'To update an existing vlan, press 2 & hit enter\n' + 'To add a new vlan'
-                                                                                  'press 3 & hit enter\n'))
+                                                                                  'press 3 & hit enter\n'
+                          + 'Press 4 to exit to main menu\n'))
     if selection == 1:
         print('Getting all vlans in the network...\n')
         getMXvlans()
@@ -218,6 +252,9 @@ def vlanmenu():
     elif selection == 3:
         print('Adding new vlan...\n')
         addMXvlan()
+    elif selection == 4:
+        mainmenu()
+
 
 
 def getMXvlans():
@@ -311,23 +348,4 @@ def addMXvlan():
     # getMXvlans()
 
 
-answer = True
-while True:
-
-    getorgs()
-    getdevices()
-
-    condition = True
-
-    while True:
-        purpose = int(input('\nWould you like to manage/update switches, firewalls, or access points?\n' +
-                            'For switches, press 1 & hit enter\n' + 'For firewalls, press 2 & hit enter\n' +
-                            'For MX vlans, press 3 & hit enter \n'))
-        if purpose == 1:
-            switchportmenu()
-        elif purpose == 2:
-            firewallmenu()
-        elif purpose == 3:
-            vlanmenu()
-        else:
-            print('invalid input')
+mainmenu()
