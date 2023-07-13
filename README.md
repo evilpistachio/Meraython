@@ -1,5 +1,5 @@
 # MeraythonNetworkGetter.py
-Meraki Dashboard API + Python
+Meraki Dashboard API + Python using pandas, numpy, requests + more 
 
 ## Features: 
 
