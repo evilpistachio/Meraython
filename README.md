@@ -10,5 +10,4 @@ Devices
 Switchports
 VLANs the swports are in
 
-Goal:
 Change VLANs in SWports, IP addresses in networks and VLANs in Switches
