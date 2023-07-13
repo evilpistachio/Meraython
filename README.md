@@ -1,8 +1,8 @@
 # MeraythonNetworkGetter.py
 Meraki Dashboard API + Python
 
-WIP
-Currently: 
+Features: 
+
 Gets
 Organizations
 Networks
@@ -11,3 +11,4 @@ Switchports
 VLANs the swports are in
 
 Change VLANs in SWports, IP addresses in networks and VLANs in Switches
+
